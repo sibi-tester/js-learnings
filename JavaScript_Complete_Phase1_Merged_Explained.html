@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript Phase 1 — Complete Core + Automation Foundation</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#172033;--muted:#64748b;--blue:#2563eb;--dark:#0f172a;--code:#111827;--border:#dce3ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1160px;margin:auto;padding:22px 18px 60px}.hero{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:#fff;padding:40px 32px;border-radius:20px;margin-bottom:22px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:10px 0}.hero p{color:#dbeafe}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:22px}nav{position:sticky;top:12px;background:#fff;border:1px solid var(--border);padding:15px;border-radius:15px}
+nav a{display:block;color:#475569;text-decoration:none;padding:4px 0;font-size:.9rem}nav a:hover{color:var(--blue)}
+section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:25px;margin-bottom:18px}
+h2{margin-top:0;border-bottom:1px solid var(--border);padding-bottom:8px}h3{color:#1d4ed8;margin-top:22px}
+pre{background:var(--code);color:#e5e7eb;padding:16px;border-radius:11px;overflow:auto}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+:not(pre)>code{background:#eef2f7;padding:2px 5px;border-radius:4px}
+.callout,.added,.note{padding:13px 16px;border-radius:8px;margin:14px 0}.callout{background:#eff6ff;border-left:4px solid #2563eb}.added{background:#f0fdf4;border-left:4px solid #22c55e}.note{background:#fff7ed;border-left:4px solid #f97316}
+table{border-collapse:collapse;width:100%;min-width:650px}.table{overflow:auto}th,td{border:1px solid var(--border);padding:10px;text-align:left}th{background:#f1f5f9}
+.day{border:1px solid var(--border);border-radius:11px;padding:15px;margin:11px 0}.project{background:#f8fbff;border:2px solid #93c5fd}
+footer{text-align:center;color:var(--muted);margin-top:25px}@media(max-width:800px){.layout{grid-template-columns:1fr}nav{position:relative}}
+@media print{nav{display:none}.layout{display:block}.hero{break-after:page}section{box-shadow:none}}
+</style>
+</head>
+<body><div class="wrap">
+
+<header class="hero">
+<h1>JavaScript Phase 1 — Complete Core + Automation Foundation</h1>
+<p><b>Merged from both learning inputs:</b> the earlier 7-Day Beginner Hands-On Guide and the supplied JavaScript Core curriculum.</p>
+<p><b>Goal:</b> learn practical JavaScript first, then move to TypeScript and Playwright automation.</p>
+</header>
+
+<div class="layout"><nav>
+<b>Contents</b>
+<a href="#how">1. Learning approach</a><a href="#mental">2. Mental model</a>
+<a href="#variables">3. Variables</a><a href="#types">4. Data types</a>
+<a href="#operators">5. Operators & truthy/falsy</a><a href="#conditions">6. Conditions</a>
+<a href="#loops">7. Loops</a><a href="#functions">8. Functions</a>
+<a href="#strings">9. Template literals</a><a href="#objects">10. Objects</a>
+<a href="#arrays">11. Arrays & methods</a><a href="#destructuring">12. Destructuring & spread</a>
+<a href="#modules">13. Modules</a><a href="#errors">14. Error handling</a>
+<a href="#async">15. Promises & async/await</a><a href="#dom">16. DOM basics</a>
+<a href="#integration">17. Integration</a><a href="#project">18. Mini project</a>
+<a href="#plan">19. 7-day plan</a><a href="#mistakes">20. Mistakes</a><a href="#checklist">21. Checklist</a>
+</nav><main>
+
+<section id="how"><h2>1. How to learn</h2>
+<p>Do not memorize syntax. Understand what the code does and practise it.</p>
+<ul>
+<li><b>Type:</b> manually type every example.</li><li><b>Predict:</b> say the expected output before running.</li>
+<li><b>Change:</b> modify a value and predict again.</li><li><b>Connect:</b> use users, test cases, URLs, browsers and API data.</li>
+<li><b>Explain:</b> explain your own code before moving forward.</li>
+</ul>
+<div class="callout"><b>Rule:</b> use <code>const</code> by default, <code>let</code> when reassignment is required, and avoid <code>var</code> in modern code.</div>
+</section>
+
+<section id="mental"><h2>2. JavaScript mental model</h2>
+<p>The supplied Core PDF uses Java as a comparison. This is useful for someone who already knows Java, but it is not required for a beginner.</p>
+<div class="table"><table><tr><th>Java idea</th><th>JavaScript</th><th>Remember</th></tr>
+<tr><td><code>String name = "Sibi"</code></td><td><code>const name = "Sibi"</code></td><td>No declared type before the variable.</td></tr>
+<tr><td><code>int age = 28</code></td><td><code>const age = 28</code></td><td><code>number</code> covers ordinary integers and decimals.</td></tr>
+<tr><td><code>boolean active</code></td><td><code>const active = true</code></td><td>Boolean is similar.</td></tr>
+<tr><td>Method</td><td>Function / arrow function</td><td>Functions are first-class values.</td></tr>
+<tr><td><code>List&lt;String&gt;</code></td><td><code>const names = ["A","B"]</code></td><td>Array is the common list structure.</td></tr>
+<tr><td><code>Map</code>/record-like data</td><td><code>{name:"A"}</code></td><td>Objects commonly represent structured data.</td></tr>
+</table></div>
+<div class="note">Classes, prototypes, generators, advanced functional programming and metaprogramming are intentionally outside this Phase 1.</div>
+</section>
+
+<section id="variables"><h2>3. Variables — const and let</h2>
+<p>JavaScript variables do not require a declared type.</p>
+<pre><code>const name = "Sibi";
+let retryCount = 0;
+retryCount = retryCount + 1;
+
+console.log(name);
+console.log(retryCount);</code></pre>
+<p><code>const</code> prevents reassignment of the binding. <code>let</code> allows reassignment.</p>
+<h3>undefined and null</h3>
+<pre><code>let result;
+console.log(result); // undefined
+
+const selectedUser = null;
+console.log(selectedUser); // null</code></pre>
+<h3>const does not freeze objects</h3>
+<pre><code>const user = { name: "Sibi", role: "Tester" };
+user.role = "Automation Engineer"; // allowed
+// user = {}; // not allowed</code></pre>
+<div class="added"><b>Added explanation:</b> <code>const</code> protects the variable binding, not every property inside an object or array.</div>
+</section>
+
+<section id="types"><h2>4. Data types</h2>
+<p>Core beginner types: string, number, boolean, undefined, null, object and array.</p>
+<pre><code>const browser = "chromium"; // string
+const timeout = 5000;       // number
+const active = true;        // boolean
+let value;                  // undefined
+const missing = null;       // null
+const browsers = ["chromium", "firefox"]; // array
+const user = { name: "Sibi" };             // object</code></pre>
+<h3>typeof</h3><pre><code>console.log(typeof "Hello");   // string
+console.log(typeof 25);        // number
+console.log(typeof true);      // boolean
+console.log(typeof undefined); // undefined</code></pre>
+<div class="added"><b>Completeness note:</b> Symbol and BigInt exist, but they are not needed for this beginner automation path.</div>
+</section>
+
+<section id="operators"><h2>5. Operators, equality and truthy/falsy</h2>
+<pre><code>const a = 10;
+const b = 3;
+
+console.log(a + b);
+console.log(a - b);
+console.log(a * b);
+console.log(a / b);
+console.log(a % b);
+
+console.log(5 === 5);   // true
+console.log(5 === "5"); // false
+console.log(5 !== "5"); // true</code></pre>
+<p>Prefer <code>===</code> and <code>!==</code> because they compare value and type.</p>
+<h3>Logical operators</h3><pre><code>const age = 25;
+const hasId = true;
+
+console.log(age &gt;= 18 &amp;&amp; hasId);
+console.log(age &lt; 18 || hasId);
+console.log(!hasId);</code></pre>
+<h3>Truthy/falsy</h3>
+<p>Common falsy values: <code>false</code>, <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>. Most other values are truthy, including empty arrays and objects.</p>
+<pre><code>const errorMessage = "";
+
+if (errorMessage) {
+  console.log("Error exists");
+} else {
+  console.log("No error");
+}</code></pre>
+</section>
+
+<section id="conditions"><h2>6. Conditions</h2>
+<pre><code>const marks = 75;
+
+if (marks &gt;= 50) {
+  console.log("Pass");
+} else {
+  console.log("Fail");
+}</code></pre>
+<pre><code>const status = "PASS";
+
+switch (status) {
+  case "PASS":
+    console.log("Test passed");
+    break;
+  case "FAIL":
+    console.log("Test failed");
+    break;
+  default:
+    console.log("Unknown status");
+}</code></pre>
+<div class="added"><b>Automation connection:</b> conditions are used for status codes, login state, expected text, feature flags and test data.</div>
+</section>
+
+<section id="loops"><h2>7. Loops</h2>
+<pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(i);
+}
+
+let count = 1;
+while (count &lt;= 5) {
+  console.log(count);
+  count++;
+}
+
+const browsers = ["chromium", "firefox", "webkit"];
+for (const browser of browsers) {
+  console.log(browser);
+}</code></pre>
+<p>Use <code>for...of</code> when you want array values directly. Learn <code>break</code> and <code>continue</code> for controlling loops.</p>
+</section>
+
+<section id="functions"><h2>8. Functions and arrow functions</h2>
+<pre><code>function add(a, b) {
+  return a + b;
+}
+
+const result = add(10, 20);
+console.log(result); // 30
+
+const multiply = (a, b) =&gt; a * b;
+console.log(multiply(4, 5));</code></pre>
+<p><b>Parameters</b> are names in the function definition. <b>Arguments</b> are the actual values passed when calling it.</p>
+<h3>Default parameter</h3><pre><code>function greet(name = "Guest") {
+  return `Hello ${name}`;
+}</code></pre>
+<h3>Function calling another function</h3><pre><code>function double(n) {
+  return n * 2;
+}
+function processNumber(n) {
+  return double(n) + 10;
+}</code></pre>
+<div class="added"><b>Automation connection:</b> helpers such as <code>login()</code>, <code>createUser()</code> and <code>getTestData()</code> are reusable functions.</div>
+</section>
+
+<section id="strings"><h2>9. Template literals</h2>
+<p>Use backticks and <code>${...}</code> for dynamic strings.</p>
+<pre><code>const username = "Sibi";
+const testName = `Login test for ${username}`;
+
+const userId = 101;
+const url = `https://example.com/users/${userId}`;
+
+console.log(testName);
+console.log(url);</code></pre>
+<p>Useful for dynamic URLs, messages, test names and logs.</p>
+</section>
+
+<section id="objects"><h2>10. Objects</h2>
+<pre><code>const user = {
+  name: "Sibi",
+  role: "Automation Tester",
+  active: true
+};
+
+console.log(user.name);
+console.log(user["role"]);
+
+const fieldName = "role";
+console.log(user[fieldName]);</code></pre>
+<p>Dot access is normal. Bracket access is useful when the property name is dynamic.</p>
+<h3>Nested object</h3><pre><code>const employee = {
+  name: "Sibi",
+  address: {
+    city: "Chennai",
+    country: "India"
+  }
+};
+
+console.log(employee.address.city);</code></pre>
+<h3>Object method</h3><pre><code>const user = {
+  name: "Sibi",
+  greet() {
+    return `Hello ${this.name}`;
+  }
+};
+
+console.log(user.greet());</code></pre>
+</section>
+
+<section id="arrays"><h2>11. Arrays and array methods</h2>
+<pre><code>const browsers = ["chromium", "firefox", "webkit"];
+
+console.log(browsers[0]);
+console.log(browsers.length);
+
+browsers.push("mobile");
+browsers.pop();
+
+console.log(browsers.includes("firefox"));</code></pre>
+<div class="table"><table><tr><th>Method</th><th>What it does</th><th>Automation example</th></tr>
+<tr><td><code>map()</code></td><td>Transforms every item and returns a new array.</td><td>Extract test names.</td></tr>
+<tr><td><code>filter()</code></td><td>Keeps matching items.</td><td>Select P0 or active tests.</td></tr>
+<tr><td><code>forEach()</code></td><td>Runs code for every item.</td><td>Log/check each test.</td></tr>
+<tr><td><code>find()</code></td><td>Returns first match or undefined.</td><td>Find a user.</td></tr>
+<tr><td><code>includes()</code></td><td>Checks membership.</td><td>Check expected status.</td></tr>
+<tr><td><code>reduce()</code></td><td>Combines values into one result.</td><td>Calculate totals.</td></tr>
+</table></div>
+<pre><code>const users = [
+  { name: "Asha", active: true },
+  { name: "Ravi", active: false },
+  { name: "John", active: true }
+];
+
+const names = users.map(user =&gt; user.name);
+const activeUsers = users.filter(user =&gt; user.active);
+const ravi = users.find(user =&gt; user.name === "Ravi");
+
+users.forEach(user =&gt; {
+  console.log(`Checking ${user.name}`);
+});
+
+const total = [10, 20, 30].reduce((sum, n) =&gt; sum + n, 0);</code></pre>
+<div class="callout"><b>Remember:</b> map → new transformed array; filter → smaller array; find → one item; forEach → execute code; reduce → one accumulated result.</div>
+</section>
+
+<section id="destructuring"><h2>12. Destructuring and spread</h2>
+<pre><code>const user = { name: "Sibi", role: "Tester" };
+const { name, role } = user;
+
+const colors = ["Red", "Blue", "Green"];
+const [first, second] = colors;
+
+const firstList = [1, 2, 3];
+const secondList = [4, 5, 6];
+const combined = [...firstList, ...secondList];
+
+const updatedUser = { ...user, role: "Automation Engineer" };</code></pre>
+<p>Destructuring is common with API responses and function results. Spread is useful for creating updated arrays/objects without manually copying each property.</p>
+</section>
+
+<section id="modules"><h2>13. Modules</h2>
+<p>Modules split reusable code across files.</p>
+<pre><code>// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+// app.js
+import { add } from "./math.js";
+
+console.log(add(10, 20));</code></pre>
+<div class="added"><b>Automation connection:</b> Playwright projects commonly separate tests, page objects, test data, utilities and configuration. Modules support that structure.</div>
+</section>
+
+<section id="errors"><h2>14. Error handling</h2>
+<pre><code>try {
+  const value = JSON.parse("invalid");
+  console.log(value);
+} catch (error) {
+  console.log("Something went wrong");
+}</code></pre>
+<pre><code>function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
+  }
+  return a / b;
+}
+
+try {
+  console.log(divide(10, 0));
+} catch (error) {
+  console.log(error.message);
+}</code></pre>
+<p>Use errors to make failures controlled, meaningful and easier to debug.</p>
+</section>
+
+<section id="async"><h2>15. Promises and async/await</h2>
+<p>Network calls, timers, file access and browser actions can take time. Promises represent future results.</p>
+<pre><code>const promise = new Promise((resolve) =&gt; {
+  setTimeout(() =&gt; resolve("Finished"), 1000);
+});
+
+promise.then(result =&gt; console.log(result));</code></pre>
+<pre><code>async function getMessage() {
+  return "Hello";
+}
+
+async function run() {
+  try {
+    const message = await getMessage();
+    console.log(message);
+  } catch (error) {
+    console.log("Failed:", error);
+  }
+}
+
+run();</code></pre>
+<div class="callout"><b>Playwright connection:</b> browser actions are asynchronous, so you will frequently see <code>await page.goto(...)</code>, <code>await page.locator(...).click()</code> and <code>await expect(...)</code>.</div>
+</section>
+
+<section id="dom"><h2>16. Browser/DOM basics — added for completeness</h2>
+<p>The supplied PDFs do not cover DOM basics. Because your goal includes front-end development and Playwright, a short introduction is useful.</p>
+<pre><code>const button = document.querySelector("#loginButton");
+
+button.addEventListener("click", () =&gt; {
+  console.log("Login clicked");
+});</code></pre>
+<pre><code>const title = document.querySelector("h1");
+
+console.log(title.textContent);
+title.textContent = "Login Page";</code></pre>
+<p>You do not need deep DOM knowledge before Playwright, but you should understand elements, selectors, text and events.</p>
+</section>
+
+<section id="integration"><h2>17. Integration exercise</h2>
+<pre><code>const testCases = [
+  { name: "Login test", username: "admin", status: "PASS" },
+  { name: "Invalid login", username: "wrong-user", status: "FAIL" }
+];
+
+const passedCases = testCases.filter(
+  testCase =&gt; testCase.status === "PASS"
+);
+
+for (const testCase of passedCases) {
+  const { name, username } = testCase;
+  console.log(`Running: ${name}`);
+  console.log(`Username: ${username}`);
+}</code></pre>
+<ul>
+<li>const stores the array.</li><li>Objects represent records.</li><li>filter selects PASS cases.</li>
+<li>for...of iterates over them.</li><li>Destructuring extracts properties.</li><li>Template literals build readable logs.</li>
+<li>Arrow functions are used inside filter.</li>
+</ul>
+</section>
+
+<section id="project" class="project"><h2>18. Mini project — data-driven login model</h2>
+<pre><code>const loginUsers = [
+  {
+    username: "validUser",
+    password: "correctPassword",
+    expected: "success"
+  },
+  {
+    username: "invalidUser",
+    password: "wrongPassword",
+    expected: "error"
+  }
+];
+
+const getUserByExpectedResult = (expected) =&gt;
+  loginUsers.find(user =&gt; user.expected === expected);</code></pre>
+<h3>Your tasks</h3>
+<ol>
+<li>Add a third user with expected <code>"error"</code>.</li>
+<li>Use filter to get all error users.</li><li>Use map to extract usernames.</li>
+<li>Use for...of to print them.</li><li>Use template literals for readable output.</li>
+<li>Use destructuring.</li><li>Add validation with throw and try/catch.</li>
+<li>Move the helper into another module.</li><li>Add an async function that simulates loading test data.</li>
+</ol>
+</section>
+
+<section id="plan"><h2>19. Seven-day hands-on plan</h2>
+<p>Target 2–3 hours each day: 45–60 minutes learning, 60–90 minutes coding and 15–30 minutes revision.</p>
+<div class="day"><b>Day 1 — Variables + Data Types</b><br>Create 15 variables. Practise string, number, boolean, null, undefined, arrays, objects and typeof. Build a personal profile program.</div>
+<div class="day"><b>Day 2 — Operators + Conditions</b><br>Practise arithmetic, comparison, strict equality, logical operators and truthy/falsy. Build a marks calculator and age check.</div>
+<div class="day"><b>Day 3 — Loops + Template Literals</b><br>Practise for, while, for...of, break and continue. Print 1–50, even numbers, a multiplication table, a sum and array values. Build dynamic messages.</div>
+<div class="day"><b>Day 4 — Functions</b><br>Write at least 12 functions. Practise parameters, returns, defaults, expressions and arrow functions. Build a calculator with validation.</div>
+<div class="day"><b>Day 5 — Arrays + Objects</b><br>Practise push, pop, includes, forEach, map, filter, find and reduce. Create arrays of test/user objects.</div>
+<div class="day"><b>Day 6 — Destructuring + Spread + Modules + Errors</b><br>Split the project into files and add validation, try/catch and throw.</div>
+<div class="day"><b>Day 7 — Promises + async/await + Revision</b><br>Practise asynchronous code, complete the mini project and explain every major line without the guide.</div>
+<div class="added"><b>Added:</b> Template literals and DOM/browser basics are included because they were not fully covered in the supplied material and are directly useful for front-end/Playwright work.</div>
+</section>
+
+<section id="mistakes"><h2>20. Common beginner mistakes</h2>
+<ul>
+<li>Using <code>var</code> everywhere → prefer <code>const</code>/<code>let</code>.</li>
+<li>Using <code>==</code> → normally prefer <code>===</code>.</li>
+<li>Thinking const makes objects immutable → it does not.</li>
+<li>Overusing indexes → prefer for...of or array methods.</li>
+<li>Writing huge functions → split reusable behaviour.</li>
+<li>Ignoring return values → know what each array method returns.</li>
+<li>Confusing <code>[]</code> arrays with <code>{}</code> objects.</li>
+<li>Copy/pasting without prediction.</li>
+<li>Trying to learn everything at once.</li>
+<li>Rushing async/await.</li>
+</ul>
+</section>
+
+<section id="checklist"><h2>21. Phase 1 completion checklist</h2>
+<ul>
+<li>Use const and let correctly.</li><li>Explain the main beginner data types.</li>
+<li>Use typeof, arithmetic, comparison and logical operators.</li><li>Explain truthy/falsy.</li>
+<li>Write if/else and switch.</li><li>Write for, while and for...of loops.</li>
+<li>Create normal and arrow functions with parameters/returns.</li><li>Use template literals.</li>
+<li>Create and manipulate objects and nested objects.</li><li>Use dot and bracket access.</li>
+<li>Use push, pop and includes.</li><li>Use forEach, map, filter, find and reduce.</li>
+<li>Use destructuring and spread.</li><li>Create modules using export/import.</li>
+<li>Handle errors with try/catch and throw.</li><li>Understand Promises and basic async/await.</li>
+<li>Understand basic DOM elements/events.</li><li>Complete the data-driven login project.</li>
+<li>Explain your own code without copying.</li>
+</ul>
+<div class="callout"><b>Next phase:</b> TypeScript from zero — types, inference, annotations, interfaces, type aliases, unions, functions, arrays, objects, optional properties, generics and type narrowing — followed by practical TypeScript + Playwright.</div>
+</section>
+
+</main></div>
+<footer>Combined and enhanced from the two supplied JavaScript learning documents. Added sections are explicitly marked.</footer>
+</div></body></html>
