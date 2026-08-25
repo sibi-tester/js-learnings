@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Phase 1 — Beginner 7-Day Hands-On Guide</title>
+<style>
+:root {
+  --bg:#f5f7fb; --card:#fff; --text:#1f2937; --muted:#64748b;
+  --accent:#2563eb; --accent-soft:#eff6ff; --code:#111827;
+  --border:#e2e8f0; --success:#166534;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height:1.65;
+}
+.container { max-width:1100px; margin:auto; padding:28px 20px 60px; }
+.hero {
+  background:linear-gradient(135deg,#0f172a,#1e3a8a);
+  color:white; border-radius:20px; padding:42px 36px; margin-bottom:24px;
+  box-shadow:0 12px 30px rgba(15,23,42,.15);
+}
+.hero h1 { margin:0 0 10px; font-size:clamp(2rem,5vw,3.2rem); line-height:1.1; }
+.hero p { margin:8px 0; color:#dbeafe; }
+.badge {
+  display:inline-block; padding:5px 10px; border-radius:999px;
+  background:rgba(255,255,255,.12); font-size:.85rem; margin:4px 5px 0 0;
+}
+.layout { display:grid; grid-template-columns:240px 1fr; gap:24px; align-items:start; }
+nav {
+  position:sticky; top:16px; background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:16px; box-shadow:0 5px 18px rgba(15,23,42,.05);
+}
+nav strong { display:block; margin-bottom:8px; }
+nav a { display:block; color:#475569; text-decoration:none; padding:5px 4px; font-size:.92rem; }
+nav a:hover { color:var(--accent); }
+main { min-width:0; }
+section, .card {
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:26px; margin-bottom:20px; box-shadow:0 5px 18px rgba(15,23,42,.04);
+}
+h2 { margin-top:0; color:#0f172a; font-size:1.65rem; border-bottom:1px solid var(--border); padding-bottom:9px; }
+h3 { color:#1e3a8a; margin-top:24px; }
+h4 { margin-bottom:8px; }
+p { margin:10px 0; }
+ul, ol { padding-left:24px; }
+.callout {
+  background:var(--accent-soft); border-left:4px solid var(--accent);
+  padding:14px 16px; border-radius:8px; margin:16px 0;
+}
+code.inline {
+  background:#eef2f7; padding:2px 6px; border-radius:5px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+pre {
+  background:var(--code); color:#e5e7eb; padding:18px; border-radius:12px;
+  overflow:auto; font-size:.9rem; line-height:1.55; margin:12px 0 20px;
+}
+pre code { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace; }
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; min-width:720px; }
+th, td { border:1px solid var(--border); padding:11px 12px; text-align:left; vertical-align:top; }
+th { background:#f8fafc; color:#0f172a; }
+.checklist li { margin:7px 0; }
+.day {
+  border:1px solid var(--border); border-radius:12px; padding:18px; margin:14px 0;
+}
+.day h3 { margin:0 0 8px; }
+.project { border:2px solid #bfdbfe; background:#f8fbff; }
+footer { text-align:center; color:var(--muted); margin-top:30px; font-size:.9rem; }
+@media (max-width:800px) {
+  .layout { grid-template-columns:1fr; }
+  nav { position:relative; top:auto; }
+  .hero { padding:30px 24px; }
+  section, .card { padding:20px; }
+}
+@media print {
+  body { background:#fff; }
+  nav { display:none; }
+  .layout { display:block; }
+  .hero { box-shadow:none; break-after:page; }
+  section { box-shadow:none; break-inside:auto; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="hero">
+  <div class="badge">JavaScript Phase 1</div>
+  <div class="badge">Beginner</div>
+  <div class="badge">7-Day Hands-On</div>
+  <h1>JavaScript Phase 1 — Beginner Study &amp; Hands-On Guide</h1>
+  <p><strong>Audience:</strong> Complete programming beginner</p>
+  <p><strong>Goal:</strong> Learn the core JavaScript concepts in 7 days through explanation, coding practice, exercises and a small hands-on project.</p>
+  <p><strong>Next goal:</strong> After Phase 1, move into TypeScript and then Playwright automation.</p>
+</header>
+
+<div class="layout">
+<nav>
+  <strong>Contents</strong>
+  <a href="#use-guide">1. How to use this guide</a>
+  <a href="#setup">2. Basic setup</a>
+  <a href="#variables">3. Variables</a>
+  <a href="#types">4. Data Types</a>
+  <a href="#operators">5. Operators</a>
+  <a href="#conditions">6. Conditions</a>
+  <a href="#loops">7. Loops</a>
+  <a href="#functions">8. Functions</a>
+  <a href="#arrays">9. Arrays</a>
+  <a href="#objects">10. Objects</a>
+  <a href="#destructuring">11. Destructuring &amp; Spread</a>
+  <a href="#modules">12. Modules</a>
+  <a href="#errors">13. Error Handling</a>
+  <a href="#async">14. Promises &amp; async/await</a>
+  <a href="#plan">15. Seven-Day Plan</a>
+  <a href="#project">16. Week-End Project</a>
+  <a href="#checklist">17. Completion Checklist</a>
+</nav>
+
+<main>
+<section id="use-guide">
+<h2>1. How to use this guide</h2>
+<p>This guide is designed for someone starting programming from zero. Do not try to memorize syntax. The objective is to understand what the code is doing and then practice it.</p>
+<ul>
+<li><strong>Read:</strong> Understand the concept and example.</li>
+<li><strong>Type:</strong> Type the example manually instead of copy/paste whenever possible.</li>
+<li><strong>Change:</strong> Modify at least one value and predict the output.</li>
+<li><strong>Practice:</strong> Complete the day's tasks independently.</li>
+<li><strong>Explain:</strong> At the end of each day, explain the concept in your own words.</li>
+</ul>
+<div class="callout"><strong>7-day target:</strong> By the end of the week, you should be able to create small JavaScript programs using variables, conditions, loops, functions, arrays, objects, modules, error handling and async/await.</div>
+</section>
+
+<section id="setup">
+<h2>2. Basic setup</h2>
+<p>You need a code editor and a JavaScript runtime. A simple setup is Visual Studio Code + Node.js. Create a folder such as <code class="inline">javascript-phase1</code> and place your practice files there.</p>
+<h3>2.1 Your first program</h3>
+<pre><code>console.log("Hello, world!");</code></pre>
+<p>Run the file with Node.js. <code class="inline">console.log()</code> prints information to the terminal.</p>
+<h3>2.2 First practice</h3>
+<pre><code>console.log("My name is ___");
+console.log("I am learning JavaScript");
+console.log(10 + 20);</code></pre>
+</section>
+
+<section id="variables">
+<h2>3. Variables — storing information</h2>
+<p>A variable is a named place/reference used by your program to work with a value.</p>
+<h3>3.1 const</h3>
+<pre><code>const name = "Anu";
+console.log(name);</code></pre>
+<p>Use <code class="inline">const</code> when you do not plan to reassign the variable.</p>
+<h3>3.2 let</h3>
+<pre><code>let age = 20;
+age = 21;
+console.log(age);</code></pre>
+<p>Use <code class="inline">let</code> when the variable needs to be reassigned.</p>
+<h3>3.3 Declaration and assignment</h3>
+<pre><code>let score; // declaration
+score = 100; // assignment
+let marks = 90; // declaration + initial value</code></pre>
+<h3>3.4 undefined and null</h3>
+<pre><code>let result;
+console.log(result); // undefined
+
+let selectedUser = null;
+console.log(selectedUser); // null</code></pre>
+<h3>3.5 Naming</h3>
+<pre><code>const firstName = "Anu";
+let totalMarks = 95;
+const isPassed = true;</code></pre>
+<p>Use meaningful names. Prefer camelCase such as <code class="inline">firstName</code>, <code class="inline">totalMarks</code> and <code class="inline">isPassed</code>.</p>
+</section>
+
+<section id="types">
+<h2>4. Data Types</h2>
+<p>A value has a type. JavaScript's most important beginner types are string, number, boolean, undefined, null, object and array.</p>
+<h3>4.1 String</h3>
+<pre><code>const name = "Anu";
+const city = 'Chennai';
+console.log(name);
+console.log(city);</code></pre>
+<h3>4.2 Number</h3>
+<pre><code>const age = 22;
+const price = 199.50;</code></pre>
+<h3>4.3 Boolean</h3>
+<pre><code>const isLoggedIn = true;
+const isAdmin = false;</code></pre>
+<h3>4.4 typeof</h3>
+<pre><code>console.log(typeof "Hello"); // string
+console.log(typeof 25); // number
+console.log(typeof true); // boolean
+console.log(typeof undefined); // undefined</code></pre>
+<h3>4.5 Arrays</h3>
+<pre><code>const fruits = ["Apple", "Mango", "Orange"];
+console.log(fruits[0]); // Apple
+console.log(fruits.length); // 3</code></pre>
+<h3>4.6 Objects</h3>
+<pre><code>const student = {
+  name: "Anu",
+  age: 22,
+  city: "Chennai"
+};
+
+console.log(student.name);
+console.log(student.age);</code></pre>
+</section>
+
+<section id="operators">
+<h2>5. Operators</h2>
+<h3>5.1 Arithmetic</h3>
+<pre><code>const a = 10;
+const b = 3;
+
+console.log(a + b);
+console.log(a - b);
+console.log(a * b);
+console.log(a / b);
+console.log(a % b);</code></pre>
+<h3>5.2 Comparison</h3>
+<pre><code>console.log(10 &gt; 5); // true
+console.log(10 &lt; 5); // false
+console.log(10 === 10); // true
+console.log(10 === "10"); // false
+console.log(10 !== 5); // true</code></pre>
+<p>Use <code class="inline">===</code> for equality while learning. It checks both value and type.</p>
+<h3>5.3 Logical operators</h3>
+<pre><code>const age = 25;
+const hasId = true;
+
+console.log(age &gt;= 18 &amp;&amp; hasId);
+console.log(age &lt; 18 || hasId);
+console.log(!hasId);</code></pre>
+</section>
+
+<section id="conditions">
+<h2>6. Conditions</h2>
+<h3>6.1 if / else</h3>
+<pre><code>const marks = 75;
+
+if (marks &gt;= 50) {
+  console.log("Pass");
+} else {
+  console.log("Fail");
+}</code></pre>
+<h3>6.2 else if</h3>
+<pre><code>const score = 85;
+
+if (score &gt;= 90) {
+  console.log("Excellent");
+} else if (score &gt;= 60) {
+  console.log("Good");
+} else {
+  console.log("Needs improvement");
+}</code></pre>
+<h3>6.3 switch</h3>
+<pre><code>const day = "Monday";
+
+switch (day) {
+  case "Monday":
+    console.log("Start of week");
+    break;
+  case "Friday":
+    console.log("Almost weekend");
+    break;
+  default:
+    console.log("Normal day");
+}</code></pre>
+</section>
+
+<section id="loops">
+<h2>7. Loops</h2>
+<p>Loops repeat code. Start with the classic <code class="inline">for</code> loop, then learn <code class="inline">while</code> and <code class="inline">for...of</code>.</p>
+<h3>7.1 for</h3>
+<pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(i);
+}</code></pre>
+<h3>7.2 while</h3>
+<pre><code>let count = 1;
+
+while (count &lt;= 5) {
+  console.log(count);
+  count++;
+}</code></pre>
+<h3>7.3 for...of</h3>
+<pre><code>const fruits = ["Apple", "Mango", "Orange"];
+
+for (const fruit of fruits) {
+  console.log(fruit);
+}</code></pre>
+<h3>7.4 break and continue</h3>
+<pre><code>for (let i = 1; i &lt;= 10; i++) {
+  if (i === 5) {
+    break;
+  }
+  console.log(i);
+}</code></pre>
+</section>
+
+<section id="functions">
+<h2>8. Functions — reusable blocks of code</h2>
+<p>A function is a reusable piece of code that can receive input, perform work and return an output.</p>
+<h3>8.1 Function declaration</h3>
+<pre><code>function add(a, b) {
+  return a + b;
+}
+
+const result = add(10, 20);
+console.log(result);</code></pre>
+<h3>8.2 Parameters and arguments</h3>
+<pre><code>function greet(name) {
+  console.log("Hello " + name);
+}
+
+greet("Anu");
+greet("Priya");</code></pre>
+<p>The name inside the function definition is a parameter. The actual value passed to the function is an argument.</p>
+<h3>8.3 Return value</h3>
+<pre><code>function calculateTotal(price, quantity) {
+  return price * quantity;
+}
+
+const total = calculateTotal(100, 3);
+console.log(total);</code></pre>
+<h3>8.4 Default parameter</h3>
+<pre><code>function greet(name = "Guest") {
+  return `Hello ${name}`;
+}
+
+console.log(greet());
+console.log(greet("Anu"));</code></pre>
+<h3>8.5 Function expression</h3>
+<pre><code>const multiply = function (a, b) {
+  return a * b;
+};
+
+console.log(multiply(4, 5));</code></pre>
+<h3>8.6 Arrow function</h3>
+<pre><code>const add = (a, b) =&gt; {
+  return a + b;
+};
+
+const square = (n) =&gt; n * n;
+console.log(square(5));</code></pre>
+<h3>8.7 Functions calling other functions</h3>
+<pre><code>function double(n) {
+  return n * 2;
+}
+
+function processNumber(n) {
+  return double(n) + 10;
+}
+
+console.log(processNumber(5)); // 20</code></pre>
+<div class="callout">This is important because real applications are built by combining many small functions.</div>
+</section>
+
+<section id="arrays">
+<h2>9. Arrays</h2>
+<p>An array stores multiple values in an ordered collection. Indexes start at 0.</p>
+<h3>9.1 Basic operations</h3>
+<pre><code>const numbers = [10, 20, 30];
+
+numbers.push(40);
+console.log(numbers);
+
+numbers.pop();
+console.log(numbers);
+
+console.log(numbers.includes(20));</code></pre>
+<h3>9.2 forEach</h3>
+<pre><code>const numbers = [10, 20, 30];
+
+numbers.forEach((number) =&gt; {
+  console.log(number);
+});</code></pre>
+<h3>9.3 map</h3>
+<pre><code>const numbers = [1, 2, 3];
+const doubled = numbers.map((number) =&gt; number * 2);
+console.log(doubled); // [2, 4, 6]</code></pre>
+<h3>9.4 filter</h3>
+<pre><code>const numbers = [10, 15, 20, 25, 30];
+
+const evenNumbers = numbers.filter((number) =&gt; {
+  return number % 2 === 0;
+});
+
+console.log(evenNumbers);</code></pre>
+<h3>9.5 find</h3>
+<pre><code>const users = [
+  { id: 1, name: "Anu" },
+  { id: 2, name: "Priya" }
+];
+
+const user = users.find((item) =&gt; item.id === 2);
+console.log(user);</code></pre>
+<h3>9.6 reduce</h3>
+<pre><code>const numbers = [10, 20, 30];
+
+const total = numbers.reduce((sum, number) =&gt; {
+  return sum + number;
+}, 0);
+
+console.log(total); // 60</code></pre>
+</section>
+
+<section id="objects">
+<h2>10. Objects</h2>
+<p>Objects group related information together using key-value pairs.</p>
+<h3>10.1 Creating an object</h3>
+<pre><code>const student = {
+  name: "Anu",
+  age: 22,
+  course: "JavaScript"
+};
+
+console.log(student.name);
+console.log(student.course);</code></pre>
+<h3>10.2 Updating and adding properties</h3>
+<pre><code>student.age = 23;
+student.city = "Chennai";
+console.log(student);</code></pre>
+<h3>10.3 Nested objects</h3>
+<pre><code>const employee = {
+  name: "Anu",
+  address: {
+    city: "Chennai",
+    country: "India"
+  }
+};
+
+console.log(employee.address.city);</code></pre>
+<h3>10.4 Object method</h3>
+<pre><code>const user = {
+  name: "Anu",
+
+  greet() {
+    return `Hello ${this.name}`;
+  }
+};
+
+console.log(user.greet());</code></pre>
+<h3>10.5 Array of objects</h3>
+<pre><code>const employees = [
+  { id: 1, name: "Anu", active: true },
+  { id: 2, name: "Priya", active: false }
+];
+
+const activeEmployees = employees.filter(
+  (employee) =&gt; employee.active
+);
+
+console.log(activeEmployees);</code></pre>
+</section>
+
+<section id="destructuring">
+<h2>11. Destructuring and Spread</h2>
+<h3>11.1 Object destructuring</h3>
+<pre><code>const user = {
+  name: "Anu",
+  age: 22
+};
+
+const { name, age } = user;
+
+console.log(name);
+console.log(age);</code></pre>
+<h3>11.2 Array destructuring</h3>
+<pre><code>const colors = ["Red", "Blue", "Green"];
+
+const [first, second] = colors;
+
+console.log(first);
+console.log(second);</code></pre>
+<h3>11.3 Spread with arrays</h3>
+<pre><code>const first = [1, 2, 3];
+const second = [4, 5, 6];
+
+const combined = [...first, ...second];
+console.log(combined);</code></pre>
+<h3>11.4 Spread with objects</h3>
+<pre><code>const user = {
+  name: "Anu",
+  age: 22
+};
+
+const updatedUser = {
+  ...user,
+  age: 23
+};
+
+console.log(updatedUser);</code></pre>
+</section>
+
+<section id="modules">
+<h2>12. Modules — splitting code into files</h2>
+<p>As programs become larger, you should not put everything in one file. Modules let you export code from one file and import it into another.</p>
+<h3>12.1 Export</h3>
+<pre><code>// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}</code></pre>
+<h3>12.2 Import</h3>
+<pre><code>// app.js
+import { add, multiply } from "./math.js";
+
+console.log(add(10, 20));
+console.log(multiply(4, 5));</code></pre>
+<p>The same idea will later be used heavily in TypeScript projects.</p>
+</section>
+
+<section id="errors">
+<h2>13. Error Handling</h2>
+<h3>13.1 try/catch</h3>
+<pre><code>try {
+  const value = JSON.parse("invalid");
+  console.log(value);
+} catch (error) {
+  console.log("Something went wrong");
+}</code></pre>
+<h3>13.2 throw</h3>
+<pre><code>function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Cannot divide by zero");
+  }
+
+  return a / b;
+}
+
+try {
+  console.log(divide(10, 0));
+} catch (error) {
+  console.log(error.message);
+}</code></pre>
+<p>Error handling helps programs fail in a controlled and understandable way.</p>
+</section>
+
+<section id="async">
+<h2>14. Promises and async/await</h2>
+<p>Some operations take time, such as reading data, calling an API or waiting for a browser action. JavaScript represents these future results using Promises.</p>
+<h3>14.1 Promise</h3>
+<pre><code>const promise = new Promise((resolve) =&gt; {
+  setTimeout(() =&gt; {
+    resolve("Finished");
+  }, 1000);
+});
+
+promise.then((result) =&gt; {
+  console.log(result);
+});</code></pre>
+<h3>14.2 async function</h3>
+<pre><code>async function getMessage() {
+  return "Hello";
+}
+
+getMessage().then((message) =&gt; {
+  console.log(message);
+});</code></pre>
+<h3>14.3 await</h3>
+<pre><code>async function run() {
+  const message = await getMessage();
+  console.log(message);
+}
+
+run();</code></pre>
+<h3>14.4 async error handling</h3>
+<pre><code>async function run() {
+  try {
+    const message = await getMessage();
+    console.log(message);
+  } catch (error) {
+    console.log("Failed:", error);
+  }
+}</code></pre>
+<div class="callout"><strong>Important:</strong> Do not rush past async/await. It will be one of the most important concepts when you later learn Playwright.</div>
+</section>
+
+<section id="plan">
+<h2>15. Seven-Day Hands-On Plan</h2>
+<p>The goal is to finish Phase 1 this week. Each day should include approximately 2–3 hours: 45–60 minutes learning, 60–90 minutes coding, and 15–30 minutes revision.</p>
+
+<div class="day"><h3>Day 1 — Variables + Data Types</h3><p>Create 15 variables using const/let. Practice string, number, boolean, null, undefined, arrays and objects. Use typeof on at least 15 values. Build a simple personal profile program that prints name, age, city, learning status and three hobbies.</p></div>
+<div class="day"><h3>Day 2 — Operators + Conditions</h3><p>Practice arithmetic, comparison, ===, !==, &amp;&amp;, || and !. Write at least 10 if/else examples. Build a marks calculator: input marks and print Excellent/Good/Pass/Fail. Add a simple age eligibility check.</p></div>
+<div class="day"><h3>Day 3 — Loops</h3><p>Write for, while and for...of loops. Practice break and continue. Solve at least 8 loop problems. Print 1–50, even numbers, multiplication table of 5, sum of numbers 1–100, and values from an array.</p></div>
+<div class="day"><h3>Day 4 — Functions</h3><p>Write at least 12 functions. Practice parameters, return, defaults, function expressions and arrow functions. Build a calculator with add, subtract, multiply and divide functions. Add validation for division by zero.</p></div>
+<div class="day"><h3>Day 5 — Arrays + Objects</h3><p>Practice push, pop, includes, forEach, map, filter, find and reduce. Create arrays of objects. Create an employee/student data set. Find a person, filter active people, list names, calculate totals and search by a property.</p></div>
+<div class="day"><h3>Day 6 — Destructuring + Modules + Errors</h3><p>Practice object/array destructuring, spread, import/export, try/catch and throw. Split your calculator/data project into multiple files. Add validation and meaningful error messages.</p></div>
+<div class="day"><h3>Day 7 — Promises + async/await + Revision</h3><p>Create and consume Promises. Practice async/await and try/catch. Revisit all previous topics. Complete the mini project below. Then explain every major line of your own code without looking at the guide.</p></div>
+</section>
+
+<section id="project" class="project">
+<h2>16. Week-End Hands-On Project</h2>
+<h3>Project: Student Management Console</h3>
+<p>Build a small JavaScript program that manages student information. Do not copy a complete solution from the internet. Build it feature by feature.</p>
+<pre><code>const students = [
+  {
+    id: 1,
+    name: "Anu",
+    age: 22,
+    marks: 85,
+    active: true,
+    skills: ["HTML", "JavaScript"]
+  },
+  {
+    id: 2,
+    name: "Priya",
+    age: 23,
+    marks: 72,
+    active: true,
+    skills: ["JavaScript"]
+  }
+];</code></pre>
+
+<h3>Required functions</h3>
+<ol>
+<li><code class="inline">findStudentById(id)</code></li>
+<li><code class="inline">getActiveStudents()</code></li>
+<li><code class="inline">getStudentNames()</code></li>
+<li><code class="inline">getAverageMarks()</code></li>
+<li><code class="inline">findStudentsAboveMarks(mark)</code></li>
+<li><code class="inline">hasSkill(student, skill)</code></li>
+<li><code class="inline">addStudent(student)</code></li>
+<li><code class="inline">removeStudent(id)</code></li>
+</ol>
+<h3>Also</h3>
+<ul>
+<li>Use map, filter, find and reduce.</li>
+<li>Use destructuring at least once.</li>
+<li>Put reusable functions in a separate module.</li>
+<li>Add try/catch and throw for invalid input.</li>
+<li>Create one async function that simulates loading students.</li>
+</ul>
+<div class="callout">The project should be your proof that you understand Phase 1. It does not need a user interface; a clean terminal program is enough.</div>
+</section>
+
+<section id="checklist">
+<h2>17. Phase 1 Completion Checklist</h2>
+<p>Before moving to TypeScript, you should be able to do these without following a tutorial line by line.</p>
+<ul class="checklist">
+<li>Create variables using const and let and explain when to use each.</li>
+<li>Explain string, number, boolean, null, undefined, arrays and objects.</li>
+<li>Use arithmetic, comparison and logical operators.</li>
+<li>Write if/else and switch conditions.</li>
+<li>Write for, while and for...of loops.</li>
+<li>Create functions with parameters and return values.</li>
+<li>Use arrow functions.</li>
+<li>Use array methods: forEach, map, filter, find and reduce.</li>
+<li>Create and manipulate objects and nested objects.</li>
+<li>Use destructuring and spread syntax.</li>
+<li>Create modules using export and import.</li>
+<li>Handle errors with try/catch and throw.</li>
+<li>Understand what a Promise is.</li>
+<li>Write basic async/await code.</li>
+<li>Build the Student Management Console without copying a full solution.</li>
+</ul>
+<div class="callout"><strong>After Phase 1:</strong> The next document should cover TypeScript from zero: types, inference, annotations, interfaces, type aliases, unions, functions, arrays, objects, optional properties, generics and type narrowing, followed by practical TypeScript + Playwright examples.</div>
+</section>
+</main>
+</div>
+
+<footer>Converted from the provided JavaScript Phase 1 — Beginner 7-Day Hands-On Guide PDF.</footer>
+</div>
+</body>
+</html>
